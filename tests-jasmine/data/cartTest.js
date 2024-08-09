@@ -11,9 +11,9 @@ describe("test suite: addToCart", () => {
           deliveryOptionId: "1",
         },
       ]);
-    });
-    console.log(localStorage.getItem("cart"));
-    loadFromStorage();
+    }); // Mock localStorage.getItem to return a predefined cart
+
+    loadFromStorage(); // Loads the mocked cart into the cart variable
 
     addToCart("e43638ce-6aa0-4b85-b27f-e1d07eb678c6");
     expect(cart.length).toBe(1);
