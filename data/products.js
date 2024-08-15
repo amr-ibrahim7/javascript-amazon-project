@@ -51,7 +51,7 @@ class Clothing extends Product {
     `;
   }
 }
-
+/*
 const product1 = new Product({
   id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
   image: "images/products/athletic-cotton-socks-6-pairs.jpg",
@@ -64,7 +64,30 @@ const product1 = new Product({
   keywords: ["socks", "sports", "apparel"],
 });
 console.log(product1);
+*/
 
+export let products = [];
+
+export function loadProducts(fun) {
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener("load", () => {
+    products = JSON.parse(xhr.response).map((productDetails) => {
+      if (productDetails.type === "clothing") {
+        return new Clothing(productDetails);
+      }
+
+      return new Product(productDetails);
+    });
+    console.log("load products");
+    fun();
+  });
+
+  xhr.open("GET", "https://supersimplebackend.dev/products");
+  xhr.send();
+}
+
+/*
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -544,3 +567,4 @@ export const products = [
   return new Product(productDetails);
 });
 console.log(products);
+*/
